@@ -6,4 +6,5 @@
 #   "author": "Nacho Libre"
 # }
 
-GET http://localhost:5000/api/quotes
+# GET http://localhost:5000/api/quotes
+GET http://localhost:5000/api/quote/734dc78c-3b1a-4670-8627-b4a89ae716e7

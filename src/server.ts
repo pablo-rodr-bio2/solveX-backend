@@ -1,7 +1,6 @@
 import express, { NextFunction, Request, Response } from 'express'
 import db from "./config/database.config"
 import { QuoteInstance } from "./model"
-import { v4 as uuidv4 } from "uuid"
 import QuoteValidator from "./validator"
 import Middleware from "./middleware"
 
@@ -28,6 +27,8 @@ app.get(
 
 app.get(
   "/api/quote/:id",
+  QuoteValidator.checkIdParam(),
+  Middleware.handleValidationError,
   async (req: Request, res: Response) => {
     try {
       const { id } = req.params
@@ -43,7 +44,7 @@ app.post(
   QuoteValidator.checkCreateQuote(),
   Middleware.handleValidationError,
   async (req: Request, res: Response) => {
-    const id = uuidv4()
+    const id = await QuoteInstance.count() + 1
     try {
       const quote = await QuoteInstance.create({ ...req.body, id })
       res.json({ quote, msg: "You have created a new quote" })
