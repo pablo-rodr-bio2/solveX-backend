@@ -1,6 +1,5 @@
-import express, { NextFunction, Request, Response } from 'express'
+import express, {  Request, Response } from 'express'
 import db from "./config/database.config"
-import { QuoteInstance } from "./model"
 import QuoteValidator from "./validator"
 import Middleware from "./middleware"
 import QuoteController from "./controller"
