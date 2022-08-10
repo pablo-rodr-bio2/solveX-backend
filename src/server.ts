@@ -42,6 +42,26 @@ app.get(
     }
   })
 
+app.put(
+  "/api/update/:id",
+  QuoteValidator.checkUpdateQuote(),
+  Middleware.handleValidationError,
+  async (req: Request, res: Response) => {
+    try {
+      const id  = req.params.id
+      const quote = await QuoteInstance.findOne({ where: { id }})
+      if(!quote) {
+        return res.json({ msg: "Can't find any quote with that id", status: 404, route: "/api/update/:id"})
+      }
+      const newQuote = req.body.quote
+      const updatedQuote = await quote.update({ quote: newQuote})
+      res.json({ quote: updatedQuote})
+    } catch (e) {
+      res.json({ msg: "Failed to update a quote", status: 500, route: "/api/update/:id" })
+    }
+  })
+
+
 app.post(
   "/api/new-quote",
   QuoteValidator.checkCreateQuote(),

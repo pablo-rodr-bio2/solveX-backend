@@ -20,6 +20,13 @@ class QuoteValidator {
         .withMessage("The 'id' value must be an integer value")
     ]
   }
+  checkUpdateQuote(){
+    return [
+      body("quote")
+        .notEmpty()
+        .withMessage("The 'quote' value must not be empty"),
+    ]
+  }
 }
 
 export default new QuoteValidator()
