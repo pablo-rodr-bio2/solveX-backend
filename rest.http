@@ -1,0 +1,9 @@
+# POST http://localhost:5000/api/new-quote
+# Content-Type: application/json
+
+# {
+#   "quote": "It's da best. I looooove it.",
+#   "author": "Nacho Libre"
+# }
+
+GET http://localhost:5000/api/quotes

@@ -3,9 +3,9 @@ import db from "../config/database.config"
 
 
 interface QuoteAttributes {
-  id: DataTypes.IntegerDataType
-  quote: DataTypes.StringDataType
-  author: DataTypes.StringDataType
+  id: string
+  quote: string
+  author: string
 }
 
 export class QuoteInstance extends Model<QuoteAttributes> {}
@@ -13,7 +13,7 @@ export class QuoteInstance extends Model<QuoteAttributes> {}
 QuoteInstance.init(
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUIDV4,
       primaryKey: true,
       allowNull: false,
     },
@@ -21,7 +21,7 @@ QuoteInstance.init(
       type: DataTypes.STRING,
     },
     author: {
-      type:DataTypes.STRING
+      type:DataTypes.STRING,
     }
     
   },
