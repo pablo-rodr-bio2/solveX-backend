@@ -33,6 +33,9 @@ app.get(
     try {
       const { id } = req.params
       const quote = await QuoteInstance.findOne({ where: { id }})
+      if (quote == null) {
+        return res.json({ msg: "No quote with that Id", status: 404, route: "/api/quote/:id"})
+      }
       res.json(quote)
     } catch (e) {
       res.json({ msg: "Failed to read a quote by id", status: 500, route: "/api/quote/:id" })
