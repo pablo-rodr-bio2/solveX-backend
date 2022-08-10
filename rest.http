@@ -7,8 +7,8 @@
 # }
 
 # GET http://localhost:5000/api/quotes
-GET http://localhost:5000/api/quote/31
-# PUT http://localhost:5000/api/update/31
+# GET http://localhost:5000/api/quote/31
+DELETE http://localhost:5000/api/delete/31
 # Content-Type: application/json
 
 # {

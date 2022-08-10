@@ -44,6 +44,7 @@ app.get(
 
 app.put(
   "/api/update/:id",
+  QuoteValidator.checkIdParam(),
   QuoteValidator.checkUpdateQuote(),
   Middleware.handleValidationError,
   async (req: Request, res: Response) => {
@@ -58,6 +59,24 @@ app.put(
       res.json({ quote: updatedQuote})
     } catch (e) {
       res.json({ msg: "Failed to update a quote", status: 500, route: "/api/update/:id" })
+    }
+  })
+
+app.delete(
+  "/api/delete/:id",
+  QuoteValidator.checkIdParam(),
+  Middleware.handleValidationError,
+  async (req: Request, res: Response) => {
+    try {
+      const id = req.params.id
+      const quote = await QuoteInstance.findOne({ where: { id } })
+      if (!quote) {
+        return res.json({ msg: "Can't find any quote with that id", status: 404, route: "/api/delete/:id" })
+      }
+      const deletedQuote = await quote.destroy()
+      res.json({ msg: "Quote succesfully deleted", quote: deletedQuote })
+    } catch (e) {
+      res.json({ msg: "Failed to update a quote", status: 500, route: "/api/delete/:id" })
     }
   })
 
