@@ -1,8 +1,7 @@
 import express, {  Request, Response } from 'express'
 import db from "./config/database.config"
-import QuoteValidator from "./validator"
-import Middleware from "./middleware"
-import QuoteController from "./controller"
+import quoteRouter from "./routes"
+
 
 db.sync().then(() => {
   console.log('connect to db')
@@ -13,41 +12,7 @@ const PORT = 5000
 
 app.use(express.json())
 
-
-app.get(
-  "/api/quotes",
-  QuoteController.readAll
-)
-
-app.get(
-  "/api/quote/:id",
-  QuoteValidator.checkIdParam(),
-  Middleware.handleValidationError,
-  QuoteController.readById
-)
-
-app.put(
-  "/api/update/:id",
-  QuoteValidator.checkIdParam(),
-  QuoteValidator.checkUpdateQuote(),
-  Middleware.handleValidationError,
-  QuoteController.updateById
-)
-
-app.delete(
-  "/api/delete/:id",
-  QuoteValidator.checkIdParam(),
-  Middleware.handleValidationError,
-  QuoteController.deleteById
-)
-
-
-app.post(
-  "/api/new-quote",
-  QuoteValidator.checkCreateQuote(),
-  Middleware.handleValidationError,
-  QuoteController.createQuote
-)
+app.use("/api", quoteRouter)
 
 app.get("/", (req: Request, res: Response) => {
   res.send('hello world')

@@ -34,7 +34,7 @@ class QuoteController{
       }
       const newQuote = req.body.quote
       const updatedQuote = await quote.update({ quote: newQuote})
-      res.json({ quote: updatedQuote})
+      res.status(201).json({ quote: updatedQuote})
     } catch (e) {
       res.status(500).json({ msg: "Failed to update a quote", route: "/api/update/:id" })
     }
@@ -58,7 +58,7 @@ class QuoteController{
     const id = await QuoteInstance.count() + 1
     try {
       const quote = await QuoteInstance.create({ ...req.body, id })
-      res.json({ quote, msg: "You have created a new quote" })
+      res.status(201).json({ quote, msg: "You have created a new quote" })
     } catch (e) {
       res.status(500).json({ msg: "Failed to create a new quote", route: "/api/new-quote" })
     }
