@@ -21,5 +21,12 @@ class QuoteValidator {
                 .withMessage("The 'id' value must be an integer value")
         ];
     }
+    checkUpdateQuote() {
+        return [
+            (0, express_validator_1.body)("quote")
+                .notEmpty()
+                .withMessage("The 'quote' value must not be empty"),
+        ];
+    }
 }
 exports.default = new QuoteValidator();

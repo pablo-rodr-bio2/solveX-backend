@@ -5,7 +5,7 @@ class Middleware {
     handleValidationError(req, res, next) {
         const error = (0, express_validator_1.validationResult)(req);
         if (!error.isEmpty()) {
-            return res.json(error);
+            return res.status(406).json(error);
         }
         next();
     }

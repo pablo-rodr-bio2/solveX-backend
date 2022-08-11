@@ -1,17 +1,18 @@
+import 'dotenv/config'
 import express, {  Request, Response } from 'express'
 import db from "./config/database.config"
 import quoteRouter from "./routes"
 
-
 db.sync().then(() => {
-  console.log('connect to db')
+  console.log('Connected to db')
 })
 
 const app = express()
-const PORT = 5000
+const PORT = process.env.PORT || 5000
 
 app.use(express.json())
 
+// Router for API endpoints
 app.use("/api", quoteRouter)
 
 app.get("/", (req: Request, res: Response) => {

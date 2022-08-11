@@ -1,8 +1,25 @@
 import express, {Request, Response} from "express"
 import { QuoteInstance } from "../model"
 
+const jwt = require("jsonwebtoken")
+
 class QuoteController{
+
+  async getToken(req: Request, res: Response) {
+    const user = {
+      id: 1,
+      name: "admin",
+      email: "admin@solvethex.com"
+    }
   
+    jwt.sign({ user: user }, process.env.JWT_SECRET, (err: string, token: string) => {
+      res.json({
+        token: token
+      })
+    })
+  }
+  
+  // Get all quotes
   async readAll(req: Request, res: Response)  {
     try {
       const quotes = await QuoteInstance.findAll()
@@ -12,6 +29,7 @@ class QuoteController{
     }
   }
 
+  // Get quote by id
   async readById(req: Request, res: Response) {
     try {
       const { id } = req.params
@@ -25,6 +43,8 @@ class QuoteController{
     }
   }
 
+  // Update quote by id 
+  // it only updates the quote, not the id or author
   async updateById(req: Request, res: Response) {
     try {
       const id  = req.params.id
@@ -40,6 +60,7 @@ class QuoteController{
     }
   }
 
+  // Delete quote by id
   async deleteById (req: Request, res: Response) {
     try {
       const id = req.params.id
@@ -54,6 +75,9 @@ class QuoteController{
     }
   }
 
+  // Create a quote
+  // the id is inferred: it's always an integer,
+  // being the length of quotes db (before the insertion) plus 1
   async createQuote (req: Request, res: Response) {
     const id = await QuoteInstance.count() + 1
     try {
