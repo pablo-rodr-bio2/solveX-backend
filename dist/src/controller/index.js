@@ -1,7 +1,21 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const model_1 = require("../model");
+const jwt = require("jsonwebtoken");
 class QuoteController {
+    async getToken(req, res) {
+        const user = {
+            id: 1,
+            name: "admin",
+            email: "admin@solvethex.com"
+        };
+        jwt.sign({ user: user }, process.env.JWT_SECRET, (err, token) => {
+            res.json({
+                token: token
+            });
+        });
+    }
+    // Get all quotes
     async readAll(req, res) {
         try {
             const quotes = await model_1.QuoteInstance.findAll();
@@ -11,6 +25,7 @@ class QuoteController {
             res.status(500).json({ msg: "Failed to read quotes", route: "/api/quotes" });
         }
     }
+    // Get quote by id
     async readById(req, res) {
         try {
             const { id } = req.params;
@@ -24,6 +39,8 @@ class QuoteController {
             res.status(500).json({ msg: "Failed to read a quote by id", route: "/api/quote/:id" });
         }
     }
+    // Update quote by id 
+    // it only updates the quote, not the id or author
     async updateById(req, res) {
         try {
             const id = req.params.id;
@@ -39,6 +56,7 @@ class QuoteController {
             res.status(500).json({ msg: "Failed to update a quote", route: "/api/update/:id" });
         }
     }
+    // Delete quote by id
     async deleteById(req, res) {
         try {
             const id = req.params.id;
@@ -53,6 +71,9 @@ class QuoteController {
             res.status(500).json({ msg: "Failed to update a quote", route: "/api/delete/:id" });
         }
     }
+    // Create a quote
+    // the id is inferred: it's always an integer,
+    // being the length of quotes db (before the insertion) plus 1
     async createQuote(req, res) {
         const id = await model_1.QuoteInstance.count() + 1;
         try {
