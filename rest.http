@@ -1,18 +1,22 @@
-POST http://localhost:5000/api/new-quote
-Content-Type: application/json
-
-{
-  "quote": "It's da best. I looooove it.",
-  "author": "Nacho Libre"
-}
-
-
-# GET http://localhost:5000/api/quotes
+# POST http://localhost:5000/api/new-quote
 # Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6ImFkbWluQHNvbHZldGhleC5jb20ifSwiaWF0IjoxNjYwMjA1Nzg0fQ.M9e3EeemBVY9u0N4wUoAIz69Mn9QWFQJ_8BD-OFzhL4
+# Content-Type: application/json
+
+# {
+#   "quote": "It's da best. I looooove it.",
+#   "author": "Nacho Libre"
+# }
+
+
+GET http://localhost:5000/api/quote/32
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6ImFkbWluQHNvbHZldGhleC5jb20ifSwiaWF0IjoxNjYwMjA1Nzg0fQ.M9e3EeemBVY9u0N4wUoAIz69Mn9QWFQJ_8BD-OFzhL4
+
 # GET http://localhost:5000/api/quote/aa
-# PUT http://localhost:5000/api/update/31
+# DELETE http://localhost:5000/api/delete/31
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6ImFkbWluQHNvbHZldGhleC5jb20ifSwiaWF0IjoxNjYwMjA1Nzg0fQ.M9e3EeemBVY9u0N4wUoAIz69Mn9QWFQJ_8BD-OFzhL4
 # Content-Type: application/json
 
 # {
 #   "quote": "It's fant-TAS-tic!"
 # }
+
